@@ -78,7 +78,7 @@ gem "seed-fu"
 
 # Markdown to HTML
 gem "redcarpet",     "~> 2.2.2"
-gem "github-markup", "~> 0.7.4", require: 'github/markup', git: 'https://github.com/gitlabhq/markup.git', ref: '61ade389c1e1c159359338f570d18464a44ddbc4' 
+gem "github-markup", "~> 0.7.4", require: 'github/markup', git: 'https://github.com/gitlabhq/markup.git', ref: '61ade389c1e1c159359338f570d18464a44ddbc4'
 
 # Asciidoc to HTML
 gem  "asciidoctor"
@@ -123,6 +123,9 @@ gem "hipchat", "~> 0.14.0"
 
 # Flowdock integration
 gem "gitlab-flowdock-git-hook", "~> 0.4.2"
+
+# Gemnasium integration
+gem "gemnasium-gitlab-service", "~> 0.2"
 
 # d3
 gem "d3_rails", "~> 3.1.4"
