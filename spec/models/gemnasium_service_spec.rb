@@ -18,7 +18,7 @@
 
 require 'spec_helper'
 
-describe AssemblaService do
+describe GemnasiumService do
   describe "Associations" do
     it { should belong_to :project }
     it { should have_one :service_hook }
@@ -26,26 +26,22 @@ describe AssemblaService do
 
   describe "Execute" do
     let(:user)    { create(:user) }
-    let(:project) { create(:project_with_code) }
+    let(:project) { create(:project) }
 
     before do
-      @assembla_service = AssemblaService.new
-      @assembla_service.stub(
+      @gemnasium_service = GemnasiumService.new
+      @gemnasium_service.stub(
         project_id: project.id,
         project: project,
         service_hook: true,
-        token: 'verySecret'
+        token: 'verySecret',
+        api_key: 'GemnasiumUserApiKey'
       )
       @sample_data = GitPushService.new.sample_data(project, user)
-      @api_url = 'https://atlas.assembla.com/spaces/ouposp/github_tool?secret_key=verySecret'
-      WebMock.stub_request(:post, @api_url)
     end
-
-    it "should call FlowDock API" do
-      @assembla_service.execute(@sample_data)
-      WebMock.should have_requested(:post, @api_url).with(
-        body: /#{@sample_data[:before]}.*#{@sample_data[:after]}.*#{project.path}/
-      ).once
+    it "should call Gemnasium service" do
+      Gemnasium::GitlabService.should_receive(:execute).with(an_instance_of(Hash)).once
+      @gemnasium_service.execute(@sample_data)
     end
   end
 end
